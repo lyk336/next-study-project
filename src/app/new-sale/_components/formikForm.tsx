@@ -2,9 +2,15 @@
 
 import { FC, useState } from 'react';
 import { useFormik, FormikErrors, isString } from 'formik';
-import { validationSchema, FormValues } from '@/scripts/validationSchemaForSale';
+import { validationSchema } from '@/scripts/validationSchemaForSale';
 import { useRouter } from 'next/navigation';
 
+interface FormValues {
+  productName: string;
+  price: number | '';
+  images: File[];
+  description: string;
+}
 interface IFormikFormProps {
   userId: string | null;
 }
@@ -15,7 +21,7 @@ const FormikForm: FC<IFormikFormProps> = ({ userId }) => {
 
   const initialValues: FormValues = {
     productName: '',
-    price: 0,
+    price: '',
     images: [],
     description: '',
   };
@@ -113,7 +119,7 @@ const FormikForm: FC<IFormikFormProps> = ({ userId }) => {
           className='form__input'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.price === 0 ? '' : formik.values.price}
+          value={formik.values.price}
         />
       </div>
       <div className='form__field'>

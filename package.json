@@ -15,8 +15,10 @@
     "formik": "^2.4.6",
     "json-server": "^1.0.0-beta.1",
     "next": "14.2.3",
+    "ngrok": "^5.0.0-beta.2",
     "react": "^18",
     "react-dom": "^18",
+    "svix": "^1.24.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

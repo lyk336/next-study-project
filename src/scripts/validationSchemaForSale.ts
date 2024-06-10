@@ -10,14 +10,7 @@ export const imagesSchema = z
 
 export const validationSchema = z.object({
   productName: z.string().min(1, 'Required').max(60, 'Max 60 characters'),
-  price: z.number().min(0.01, 'Must be greater than 0'),
+  price: z.coerce.number().min(0.01, 'Must be greater than 1 cent').max(1000000),
   images: imagesSchema,
   description: z.string().max(200, 'Max 200 characters'),
 });
-
-export interface FormValues {
-  productName: string;
-  price: number;
-  images: File[];
-  description: string;
-}
