@@ -18,18 +18,18 @@
 }
 .white-button {
   background-color: transparent;
-  border: 1px solid $light-text-color;
+  border: 1px solid $text-color;
   padding: 0.25rem 0.5rem;
 
   text-transform: capitalize;
-  color: $light-text-color;
+  color: $text-color;
   font-weight: 500;
   font-size: 1rem;
 
   border-radius: 0.25rem;
 
   &:hover {
-    outline: 1px solid $light-text-color;
+    outline: 1px solid $text-color;
   }
   &:active {
     outline-width: 0;
@@ -48,6 +48,8 @@ body {
 
   width: 100dvw;
   background-color: $primary-color;
+
+  color: $light-text-color;
 
   &__container {
     display: flex;
@@ -148,7 +150,7 @@ body:has(.filters) {
     height: 1.5rem;
     background-color: transparent;
     padding: 0.25rem;
-    outline: 1px solid $light-text-color;
+    outline: 1px solid $text-color;
     box-sizing: content-box;
 
     border-radius: 0.25rem;
@@ -157,7 +159,7 @@ body:has(.filters) {
       outline-width: 2px;
     }
     &.active {
-      background-color: $light-text-color;
+      outline: 3px solid #333;
     }
   }
   img {
@@ -197,7 +199,7 @@ body:has(.filters) {
     width: 100%;
 
     &__description {
-      color: $text-color;
+      color: rgba(51, 51, 51, 0.6);
       font-size: 0.875rem;
       max-height: 5.25rem;
 
@@ -307,7 +309,7 @@ input[type='number'] {
   }
   &__hint {
     font-size: 0.875rem;
-    color: $text-color;
+    color: rgba(51, 51, 51, 0.5);
   }
   &__error {
     font-size: 1rem;
@@ -331,7 +333,7 @@ input[type='number'] {
 
   &__submit {
     padding: 0.5rem 1.5rem;
-    border: 1px solid $text-color;
+    border: 1px solid $light-text-color;
     background-color: rgba(255, 255, 255, 0.8);
     width: min(15rem, 100%);
     margin: 0.75rem auto 0;
@@ -350,5 +352,68 @@ input[type='number'] {
   }
   textarea {
     resize: none;
+  }
+}
+.image-uploader__box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.image-uploader {
+  display: flex;
+  flex-direction: column;
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    margin-bottom: 0.5rem;
+  }
+  &__image {
+    display: flex;
+    align-items: start;
+
+    img {
+      object-fit: contain;
+    }
+  }
+  &__remove {
+    height: 1rem;
+    width: 1rem;
+    background-color: transparent;
+
+    color: #333;
+  }
+}
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1rem 2rem;
+
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  transition: all 0.15s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(51, 51, 51, 0.1);
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  &__select {
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    border: 1px solid $text-color;
+
+    font-size: 1rem;
+
+    border-radius: 0.25rem;
   }
 }

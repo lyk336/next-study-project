@@ -3,25 +3,14 @@ import { FC } from 'react';
 import GoodsList from './_goodsComponents/goodsList';
 import Image from 'next/image';
 import Price from '@/components/price';
-import db from '@/db/db';
+import { getProductList } from '@/scripts/dbData/getProductList';
+
+export const revalidate = 10;
 
 interface IGoodsProps {}
 
 const Goods: FC<IGoodsProps> = async () => {
-  const goods = await db.product.findMany({
-    take: 20,
-    select: {
-      id: true,
-      imagePaths: true,
-      productName: true,
-      priceInCents: true,
-      discount: true,
-      description: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  const goods = await getProductList();
 
   return (
     <div className='goods__container'>
@@ -34,7 +23,13 @@ const Goods: FC<IGoodsProps> = async () => {
           {goods.map((product) => (
             <li className='goods__product product' key={product.id}>
               <Link href={`/goods/${product.id}`}>
-                <Image src={product.imagePaths[0]} alt='' className='product__thumbnail' width={240} height={240} />
+                <Image
+                  src={`/api/product/${product.imagePaths[0]}`}
+                  alt=''
+                  className='product__thumbnail'
+                  width={240}
+                  height={240}
+                />
                 <h2 className='product__title'>{product.productName}</h2>
                 <Price originalPriceInCents={product.priceInCents} priceWithDiscount={product.discount} />
                 <p className='product__description'>{product.description}</p>

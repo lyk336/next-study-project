@@ -2,6 +2,7 @@ import { imagesSchema } from '@/scripts/validationSchemaForSale';
 import { z } from 'zod';
 import fs from 'fs/promises';
 import db from '@/db/db';
+import path from 'path';
 
 interface IProductProps {
   productName: string;
@@ -55,10 +56,11 @@ export async function POST(request: Request) {
   const data = result.data;
   const filePaths: Array<string> = [];
   for (const file of data.images) {
-    await fs.mkdir('public/images', { recursive: true });
-    const filePath: string = `/images/${crypto.randomUUID()}-${file.name}`;
+    await fs.mkdir('image-bucket', { recursive: true });
+    const extName = path.extname(file.name);
+    const filePath: string = `${crypto.randomUUID()}${extName}`;
     filePaths.push(filePath);
-    await fs.writeFile(`public${filePath}`, Buffer.from(await file.arrayBuffer()));
+    await fs.writeFile(`image-bucket/${filePath}`, Buffer.from(await file.arrayBuffer()));
   }
   const productProps: IProductProps = {
     productName: data.productName,

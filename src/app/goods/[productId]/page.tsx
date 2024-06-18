@@ -1,20 +1,15 @@
 import Price from '@/components/price';
 import ProductImages from './_productComponents/productImages';
 import { FC } from 'react';
-import db from '@/db/db';
 import { notFound } from 'next/navigation';
+import { getProductData } from '@/scripts/dbData/getProduct';
 
 interface IProductProps {
   params: { productId: string };
 }
 
 const Product: FC<IProductProps> = async ({ params }) => {
-  const productData = await db.product.findFirst({
-    where: {
-      id: params.productId,
-    },
-  });
-
+  const productData = await getProductData(params.productId);
   if (!productData) {
     notFound();
   }

@@ -8,8 +8,8 @@ interface IPriceProps {
 const Price: FC<IPriceProps> = ({ originalPriceInCents, priceWithDiscount }) => {
   return (
     <div className='price-box'>
-      <span className={`price${priceWithDiscount ? ' crossed' : ''}`}>{originalPriceInCents / 100} &#8372;</span>
-      {priceWithDiscount && <span className='price-discount'>{priceWithDiscount} &#8372;</span>}
+      <span className={`price${priceWithDiscount ? ' crossed' : ''}`}>{originalPriceInCents / 100} $</span>
+      {priceWithDiscount && <span className='price-discount'>{priceWithDiscount / 100} $</span>}
     </div>
   );
 };

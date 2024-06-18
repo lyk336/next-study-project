@@ -4,11 +4,12 @@ import { FC, useState } from 'react';
 import { useFormik, FormikErrors, isString } from 'formik';
 import { validationSchema } from '@/scripts/validationSchemaForSale';
 import { useRouter } from 'next/navigation';
+import { MultiImageDropzone } from './imageUploader';
 
 interface FormValues {
   productName: string;
   price: number | '';
-  images: File[];
+  images: Array<File>;
   description: string;
 }
 interface IFormikFormProps {
@@ -80,10 +81,6 @@ const FormikForm: FC<IFormikFormProps> = ({ userId }) => {
       }
     },
   });
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const files = Array.from(event.currentTarget.files || []);
-    formik.setFieldValue('images', files);
-  };
 
   return (
     <form onSubmit={formik.handleSubmit} className='new-sale__form form'>
@@ -131,14 +128,12 @@ const FormikForm: FC<IFormikFormProps> = ({ userId }) => {
             {formik.errors.images && (typeof formik.errors.images === 'string' ? formik.errors.images : 'error')}
           </p>
         )}
-        <input
-          type='file'
-          id='images'
-          name='images'
-          multiple={true}
-          className='form__input image-input'
-          onChange={handleFileChange}
-          onBlur={formik.handleBlur}
+        <MultiImageDropzone
+          value={formik.values.images}
+          onChange={(files) => {
+            formik.setFieldValue('images', files);
+          }}
+          dropzoneOptions={{ maxFiles: 10 }}
         />
       </div>
       <div className='form__field'>
